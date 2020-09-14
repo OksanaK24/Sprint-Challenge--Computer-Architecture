@@ -117,25 +117,37 @@ class CPU:
                 self.fl["equal"] = 1
 
         elif op == "AND":
-            self.reg[reg_a] = reg_a & reg_b
+            operand_a = self.reg[reg_a]
+            operand_b = self.reg[reg_b]
+            self.reg[reg_a] = operand_a & operand_b
 
         elif op == "OR":
-            self.reg[reg_a] = reg_a | reg_b
+            operand_a = self.reg[reg_a]
+            operand_b = self.reg[reg_b]
+            self.reg[reg_a] = operand_a | operand_b
 
         elif op == "XOR":
-            self.reg[reg_a] = reg_a ^ reg_b
+            operand_a = self.reg[reg_a]
+            operand_b = self.reg[reg_b]
+            self.reg[reg_a] = operand_a ^ operand_b
 
         elif op == "NOT":
-            self.reg[reg_a] = ~ reg_a
+            self.reg[reg_a] = ~self.reg[reg_a]
 
         elif op == "SHL":
-            self.reg[reg_a] = reg_a << reg_b
+            operand_a = self.reg[reg_a]
+            operand_b = self.reg[reg_b]
+            self.reg[reg_a] = operand_a << operand_b
 
         elif op == "SHR":
-            self.reg[reg_a] = reg_a >> reg_b
+            operand_a = self.reg[reg_a]
+            operand_b = self.reg[reg_b]
+            self.reg[reg_a] = operand_a >> operand_b
 
         elif op == "MOD":
-            self.reg[reg_a] = reg_a % reg_b
+            operand_a = self.reg[reg_a]
+            operand_b = self.reg[reg_b]
+            self.reg[reg_a] = operand_a % operand_b
 
         else:
             raise Exception("Unsupported ALU operation")
@@ -227,54 +239,54 @@ class CPU:
 
     def call_AND(self):
         # first register
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         # second register
-        operand_b = self.reg[self.ram_read(self.pc + 2)]
+        operand_b = self.ram_read(self.pc + 2)
         self.pc += 3
         self.alu("AND", operand_a, operand_b)
 
     def call_OR(self):
         # first register
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         # second register
-        operand_b = self.reg[self.ram_read(self.pc + 2)]
+        operand_b = self.ram_read(self.pc + 2)
         self.pc += 3
         self.alu("OR", operand_a, operand_b)
 
     def call_XOR(self):
         # first register
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         # second register
-        operand_b = self.reg[self.ram_read(self.pc + 2)]
+        operand_b = self.ram_read(self.pc + 2)
         self.pc += 3
         self.alu("XOR", operand_a, operand_b)
 
     def call_NOT(self):
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         self.pc += 2
         self.alu("NOT", operand_a, 0)
 
     def call_SHL(self):
         # first register
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         # second register
-        operand_b = self.reg[self.ram_read(self.pc + 2)]
+        operand_b = self.ram_read(self.pc + 2)
         self.pc += 3
         self.alu("SHL", operand_a, operand_b)
 
     def call_SHR(self):
         # first register
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         # second register
-        operand_b = self.reg[self.ram_read(self.pc + 2)]
+        operand_b = self.ram_read(self.pc + 2)
         self.pc += 3
         self.alu("SHR", operand_a, operand_b)
 
     def call_MOD(self):
         # first register
-        operand_a = self.reg[self.ram_read(self.pc + 1)]
+        operand_a = self.ram_read(self.pc + 1)
         # second register
-        operand_b = self.reg[self.ram_read(self.pc + 2)]
+        operand_b = self.ram_read(self.pc + 2)
         if operand_b == 0:
             print("You can't divide on '0'! ")
             self.call_HLT()
